@@ -1,0 +1,26 @@
+1. Create apps required -> py manage.py startapp [appname]
+2. Move the apps into the project folder
+3. Add the apps to the settings.py file INSTALLED_APPS
+4. Create urls.py file in each app and set urlpatterns = ()
+5. Add the paths of newly created files to main urls.py file using include('path_to_blog/', include('project.app.urls'))
+6. In settings.py STATIC_URL = 'static/' -> indicates url in client
+and set STATICFILES_DIRS = () to include the staticfiles resources -> indicated location in file system
+
+Creating and adding VIEWS.
+A view is a function or callable (functions, classes with __call__ overriden method) which has at least 1 param
+'request' as minimum, and returns HTTP response as HttpResponse(content) with a content (could be simple text).
+In order to visualize, we will return templates as HttpResponse using render() method. -> return render(request, 'template_name', context)
+The context is {} and allows dynamic info to be passed to the template.
+
+7. After creating the views using templates, add the urls to the app's urls.py file and always name the urls.
+8. If you use parameter in the url, i.e <int:pk> then the same name of the param should be used in the view. Otherwise
+will throw error
+9. If you have same prefix for multiple urls, use include() to avoid repetition, ie
+path('profile/<int:pk>', include([list_of_required_paths])
+
+10. In the *.html files or templates, the css is loaded using href="static/.../..." by default since the default
+static folder for client in settings.py is STATIC_URL = 'static/'. However, if we change this folder to be 'static2' ie
+then the css will not be loaded. In order to avoid hardcoding the information, tag is used {% static 'rest_of_url' %} which
+has to be loaded (imported) as {% load static %} on top of the html file. The tag ALWAYS point to the folder, indicated
+by the STATIC_URL and this should be done in all .html files
+
