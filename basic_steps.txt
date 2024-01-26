@@ -24,3 +24,6 @@ then the css will not be loaded. In order to avoid hardcoding the information, t
 has to be loaded (imported) as {% load static %} on top of the html file. The tag ALWAYS point to the folder, indicated
 by the STATIC_URL and this should be done in all .html files
 
+11. In the *.html files must use {% url %} tag to indicate hyperlinks -> {% url 'name of the view' %}
+
+12. The 404 page should be set if page not found. In settings DEBUG=FALSE. We should have ALLOWED_HOSTS = ['127.0.0.1', 'localhost',]
