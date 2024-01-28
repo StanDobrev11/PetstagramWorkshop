@@ -27,3 +27,6 @@ by the STATIC_URL and this should be done in all .html files
 11. In the *.html files must use {% url %} tag to indicate hyperlinks -> {% url 'name of the view' %}
 
 12. The 404 page should be set if page not found. In settings DEBUG=FALSE. We should have ALLOWED_HOSTS = ['127.0.0.1', 'localhost',]
+
+13 When creating models that require ImageField of FileField, ie files to be stored, we need to create MEDIA_ROOT in
+settings.py to show path to media folder MEDIA_ROOT = BASE_DIR / 'mediafiles'
