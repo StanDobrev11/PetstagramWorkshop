@@ -49,7 +49,7 @@ On the child templates, we should inherit base template using : {% extends 'base
 Then we start the new part using {% block content %} and end it using {% endblock %} where 'content' is the name
 of the block. We may have many blocks with diff names
 
-
+We can use if-else-endif in the base template and it will work for all
 
 
 

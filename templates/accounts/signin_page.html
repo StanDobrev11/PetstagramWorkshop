@@ -8,7 +8,7 @@
             <h1>Petstagram</h1>
 
             <!-- Start Login Form-->
-            <form action="#">
+            <form action="{% url 'signin user' %}">
                 <p>
                     <label for="id_username">Username:</label>
                     <input type="text" placeholder="Username">
@@ -27,7 +27,7 @@
         <div class="second-option">
 
             <!-- Link to Register Page-->
-            <p>Don't have an account? <a href="#">Register</a></p>
+            <p>Don't have an account? <a href="{% url 'signup user' %}">Register</a></p>
         </div>
     </div>
     <!-- End Login Section-->
