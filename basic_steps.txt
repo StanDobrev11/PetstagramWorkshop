@@ -34,3 +34,40 @@ settings.py to show path to media folder MEDIA_ROOT = BASE_DIR / 'mediafiles'
 14 Create MIXIN that keeps record of created_date and updated_date.
 
 15. Register the models in the corresponding admin.py file
+
+
+II WORKSHOP PART 2
+
+1. Template inheritance - the common parts, like header, footer, on the templates can be placed in one base template
+and then inherited by the rest in order to avoid repetition. On the base template, the <main> section will contain the
+tags for the specific template like this:
+<main>
+    {% block content %}
+    {% endblock %}
+</main>
+On the child templates, we should inherit base template using : {% extends 'base.html' %}
+Then we start the new part using {% block content %} and end it using {% endblock %} where 'content' is the name
+of the block. We may have many blocks with diff names
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
