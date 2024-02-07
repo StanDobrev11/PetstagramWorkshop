@@ -51,8 +51,11 @@ of the block. We may have many blocks with diff names
 
 We can use if-else-endif in the base template and it will work for all
 
+2. Template include - in case we have repetition of code and information, we can always place the repetitive code in
+separate 'partials' template to contain them then include it using {% include %} tag where we want
 
-
+The other option to break down the code is to create folder named Layout in partials which will contain htmls for header
+footer etc.
 
 
 
