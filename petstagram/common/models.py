@@ -1,6 +1,6 @@
 from django.db import models
 
-from petstagram.mixins import TimestampMixin
+from petstagram.core.mixins import TimestampMixin
 from petstagram.photos.models import PetPhoto
 
 

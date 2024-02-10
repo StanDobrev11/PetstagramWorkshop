@@ -1,0 +1,12 @@
+<span class="heart">
+
+        <!-- Link to Like Path -->
+        <a href="{% url 'like photo' pk=photo.pk %}">
+            <!-- if user has liked the photo -->
+            {% if photo.like_set.count > 0 %}
+                <i class="fa-solid fa-heart" style="color: #ed4040;"></i>
+            {% else %}
+                <i class="fa-regular fa-heart"></i>
+            {% endif %}
+        </a>
+</span>

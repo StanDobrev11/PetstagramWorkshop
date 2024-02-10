@@ -1,9 +1,9 @@
 from django.core.validators import MinLengthValidator
 from django.db import models
 
-from petstagram.mixins import TimestampMixin
+from petstagram.core.mixins import TimestampMixin
 from petstagram.pets.models import Pet
-from petstagram.photos.validators import validate_photo_size, MaxFileSizeValidator
+from petstagram.photos.validators import MaxFileSizeValidator
 
 
 # Create your models here.

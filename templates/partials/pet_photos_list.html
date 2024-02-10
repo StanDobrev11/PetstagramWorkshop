@@ -1,0 +1,105 @@
+{% load static %}
+
+
+{% for photo in pet_photos %}
+    <div class="card">
+
+        <!-- Start User Details and Image Location -->
+        <div class="top">
+            <div class="userDetails">
+                <!-- Link to User Profile Page -->
+                <a href="{% url 'details profile' pk=1 %}">
+                    <div class="profilepic">
+                        <div class="profile_img">
+                            <div class="image">
+                                <img src="{% static 'images/person.png' %}" alt="img8">
+                            </div>
+                        </div>
+                    </div>
+                </a>
+                <h3>
+                    <!-- Link to User Profile Page -->
+                    <a href="{% url 'details profile' pk=1 %}">
+                        <!-- if user has first name and last name -->
+                        Diyan Kalaydzhiev
+                        <!-- else -->
+                        <!-- show user username -->
+                    </a>
+                    <br>
+                    <!-- if the photo has location -->
+                    <span>{{ photo.location }}</span>
+
+                    {% block photo_edit_delete_buttons %}
+                    {% endblock %}
+
+                </h3>
+            </div>
+        </div>
+        <!-- End User Details and Image Location -->
+
+        <!-- Start Pet Photo -->
+        <div class="imgBx" id="{{ photo.pk }}">
+            {#        <img src="{% static 'images/axolotl.jpeg' %}" alt="post" class="cover">#}
+            <img src="{{ photo.photo.url }}" alt="not working properly" class="cover">
+        </div>
+        <!-- End Pet Photo -->
+
+        <!-- Start Like and Share Buttons -->
+        <div class="bottom">
+            <div class="actionBtns">
+                <div class="left">
+                    <!-- Start Like Button -->
+                    {% include 'partials/like.html' %}
+                    <!-- End Like Button -->
+
+                    <!-- Start Share Button -->
+                    {% include 'partials/share.html' %}
+                    <!-- End Share Button -->
+
+                </div>
+            </div>
+            <!-- End Like and Share Buttons -->
+
+            <!-- Number of Likes per Photo -->
+            <p class="likes">{{ photo.like_set.count }} likes</p>
+
+
+            <!-- Start Tagged Pets -->
+            <!-- Using for cycle to pass through tagged pets -->
+            {% for pet in photo.tagged_pets.all %}
+                <a href="{% url 'details pet' username='Will-Change-When-Have-Users' pet_slug=pet.slug %}">
+                    <p class="message">
+                        <b>{{ pet.name }}</b>
+                    </p>
+                </a>
+            {% endfor %}
+            <!-- End Tagged Pets -->
+
+            <!-- Link to Photo Details Page -->
+            <a href="{% url 'photo details' pk=photo.pk %}">
+                <h4 class="details">See details</h4>
+            </a>
+
+            <!-- Date of Publication -->
+            <h5 class="postTime">{{ photo.date_of_publication|date:'d/M/Y' }}</h5>
+
+            <!-- Start Add Comments Section -->
+            <div class="addComments">
+
+                <!-- Start Add Comments Form -->
+                <form method="post" action="#">
+                    <label for="id_body">Body:</label>
+                    <textarea name="body" cols="40" rows="10" placeholder="Add comment..." maxlength="300"
+                              required="" id="id_body"></textarea>
+                    <button type="submit">Post</button>
+                </form>
+                <!-- End Add Comments Form -->
+
+            </div>
+            <!-- End Add Comments Section -->
+
+        </div>
+    </div>
+{% empty %}
+    <img class="no-posts" src="{% static 'images/no_posts.png' %}" alt="no posts image">
+{% endfor %}

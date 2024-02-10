@@ -1,11 +1,13 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block content %}
 
+
+
+{% block content %}
+     
     <div class="container">
         <div class="col-9">
-
             <!-- Start Searchbar Form -->
             <form class="searchbar" method="post">
                 <input type="text" placeholder="Search by pet name...">
@@ -14,9 +16,9 @@
                 </button>
             </form>
             <!-- End Searchbar Form -->
-            
-            {% include 'partials/pet-photos-list.html' %}
-           
+
+            {% include 'partials/pet_photos_list.html' with photo_list=pet_photos %}
+
 
         </div>
     </div>

@@ -4,7 +4,7 @@
 4. Create urls.py file in each app and set urlpatterns = ()
 5. Add the paths of newly created files to main urls.py file using include('path_to_blog/', include('project.app.urls'))
 6. In settings.py STATIC_URL = 'static/' -> indicates url in client
-and set STATICFILES_DIRS = () to include the staticfiles resources -> indicated location in file system
+and set STATICFILES_DIRS = 'provide_dir_to_staticfiles ie BASE_DIR/'staticfiles' to include the staticfiles resources -> indicated location in file system
 
 Creating and adding VIEWS.
 A view is a function or callable (functions, classes with __call__ overriden method) which has at least 1 param
@@ -56,6 +56,92 @@ separate 'partials' template to contain them then include it using {% include %}
 
 The other option to break down the code is to create folder named Layout in partials which will contain htmls for header
 footer etc.
+
+3. In order to make a template dynamic, we need to pass args to the context and this args will be photos location inside
+database so they can be properly displayed on the template.
+We need to modify the index.html view in order to do that. We need to extract the photos from the models in db using
+django queries. This is done in the views, context
+The include tag provides access to the view of the included tag -> inheritance. Hence, in the partial template, if
+we want to view all photos, we need to provide {{ pet_photos }} tag there so it will be .
+Better way is to provide parameter in the include tag: {% include 'partials/pet-photos-list.html' with photo_list=pet_photos %}
+in order to use photo_list var in every template, however with different value passed
+
+
+4.FORMS
+In the app folder we create py file called forms.py
+We create class named after the model + Form, which inherits form.ModelForm -> class PetForm(forms.ModelForm)
+Then we create class Meta where we specify the model: class Meta: model = Pet. The modelForms must have either 'fields'
+or 'exclude'. fields = ['name', 'pet_photo'...]
+Forms inherit all validators that are in the model. It is good practice to make base form and to inherit different type
+of forms.
+Afterwards, in the views, we include the forms by getting the POST or NONE method?!? Check pets/views!!
+
+Then add the form in the respective template where is written 'form action' using {% url %} method='post'
+In the form action, using {{ }} you can add formatting of the form.
+Always insert {% csrf_token %} when using POST and place it ALWAYS AT THE BOTTOM OF THE FORM ACTION
+
+If we would like the labels of the form to be different, in the Meta class we can adjust # widgets or # labels to
+achive that. Normally should be done using fronend
+Example check pets/forms
+
+Edit form has username and pet slug as parameters passed to the view. In order to display the form in the template
+we need to pass them to the url. In order to be accessible in the template so we can pass them, we need to pass them in
+the context of the view
+
+When defining pet_form it is important to indicate that instance=Pet, ie the object it refers to. This is allow the form
+field to be pre-defined and also tfor the proper validation
+
+In the child forms, we can modify the inherited fields and to adjust widgets, ie readonly, etc...
+If we rewrite class Meta in the child, we need to inherit meta form the parent class.
+We need to rewrite clean method to validate the fields if they are readonly. The new data should be compared to the
+readonly instance data, ie:
+
+def clean_date_of_birth(self):
+    date_of_birth = self.cleaned_data['date_of_birth']
+    if date_of_birth != self.instance.date_of_birth:
+        raise ValidationError('Date of birth is read only!')
+
+When working on delete forms, instead of using .delete() method, it is always better to overwrite .save() method.
+
+It is good practice to use Mixins for the fields that will be applied as readonly.
+
+We can create in the main app a package named core, that will contain basic python code like mixins
+
+
+Part III Set up media files
+
+In the settings.py file, similar to staticfiles root, we need to create madia root :
+MEDIA_ROOT = BASE_DIR / 'media'.
+Then we specify MEDIA_URL = '/media/' again in the settings.py
+Finally in the main urls we need to point the path using setting.DEBUG, check how it is done
+
+When uploading photos, on the forms we need to add request.FILES or None and on the template, after form action we need
+to add enctype="multipart/form-date"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
